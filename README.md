@@ -1,4 +1,4 @@
-hcb-blog-comments
-=================
+husky-blog
+==================
 
 Plugin
