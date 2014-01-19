@@ -6,10 +6,11 @@ define([
     "dojo/i18n!../nls/List",
     "hc-backend/router",
     "hcb-comments/list/widget/Grid",
-    "hc-backend/dgrid/form/DeleteSelectedButton"
+    "hc-backend/dgrid/form/DeleteSelectedButton",
+    "hc-backend/dgrid/form/RefreshSelectedButton"
 ], function(declare, _ContentMixin, _TemplatedMixin,
             template, translation, router,
-            Grid, DeleteSelectedButton) {
+            Grid, DeleteSelectedButton, RefreshSelectedButton) {
     return declare([ _ContentMixin, _TemplatedMixin ], {
         //  summary:
         //      List container. Contains widgets who responsible for
@@ -28,6 +29,13 @@ define([
                                                                'class': this.baseClass+'DeleteComments',
                                                                'grid': this._gridWidget});
 
+                this._moderateWidget =
+                    new RefreshSelectedButton({'label': translation['moderateSelectedButton'],
+                                               'target': router.assemble('/moderate', {}, true),
+                                               'name': 'comments',
+                                               'class': this.baseClass+'ModerateComments',
+                                               'grid': this._gridWidget});
+
             } catch (e) {
                  console.error(this.declaredClass, arguments, e);
                  throw e;
@@ -37,6 +45,7 @@ define([
         startup: function () {
             try {
                 this.addChild(this._deleteWidget);
+                this.addChild(this._moderateWidget);
                 this.addChild(this._gridWidget);
                 this.inherited(arguments);
             } catch (e) {

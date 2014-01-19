@@ -27,7 +27,14 @@ define([
 
         columns: [
             selector({ label: "", width: 40, selectorType: "checkbox" }),
-            {label: translation['labelId'], hidden: true, field: 'id', sortable: true, resizable: false}
+            {label: translation['labelId'], hidden: true, field: 'id', sortable: true, resizable: false},
+            editor({label: translation['labelContent'], field: 'content', hidden: false,
+                    sortable: true, resizable: true, route: '/show/:id'}),
+            {label: translation['labelApprovedDeclined'], field: 'approved',
+             sortable: true, resizable: true, formatter: function (value){
+                return value && translation['labelApproved'] || translation['labelDeclined'];
+            }},
+            timestamp({label: translation['labelCreatedTimestamp'], field: 'createdTimestamp', sortable: true})
         ],
 
         loadingMessage: translation['loadingMessage'],

@@ -7,7 +7,7 @@ use HcBackend\Service\CommandInterface;
 use Doctrine\ORM\EntityManager;
 use Zf2Libs\Stdlib\Service\Response\Messages\Response;
 
-class DeleteService implements CommandInterface
+class ModerateService implements CommandInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -22,15 +22,15 @@ class DeleteService implements CommandInterface
     /**
      * @var ByIdsInterface
      */
-    protected $deleteData;
+    protected $moderateData;
 
     public function __construct(EntityManager $entityManager,
                                 Response $response,
-                                ByIdsInterface $deleteData)
+                                ByIdsInterface $moderateData)
     {
         $this->entityManager = $entityManager;
         $this->response = $response;
-        $this->deleteData = $deleteData;
+        $this->moderateData = $moderateData;
     }
 
     /**
@@ -38,22 +38,28 @@ class DeleteService implements CommandInterface
      */
     public function execute()
     {
-        return $this->delete($this->deleteData);
+        return $this->moderate($this->moderateData);
     }
 
     /**
-     * @param ByIdsInterface $commentsToDelete
+     * @param ByIdsInterface $commentsToModerate
      * @return Response
      */
-    protected  function delete(ByIdsInterface $commentsToDelete)
+    protected  function moderate(ByIdsInterface $commentsToModerate)
     {
         try {
             $this->entityManager->beginTransaction();
-            $commentEntities = $commentsToDelete->getEntities();
+            $commentsEntities = $commentsToModerate->getEntities();
 
-            /* @var $commentEntities CommentEntity[] */
-            foreach ($commentEntities as $commentEntity) {
-                $this->entityManager->remove($commentEntity);
+            /* @var $commentsEntities CommentEntity[] */
+            foreach ($commentsEntities as $commentEntity) {
+                if ($commentEntity->getApproved()) {
+                    $commentEntity->setApproved(0);
+                } else {
+                    $commentEntity->setApproved(1);
+                }
+
+                $this->entityManager->persist($commentEntity);
             }
 
             $this->entityManager->flush();

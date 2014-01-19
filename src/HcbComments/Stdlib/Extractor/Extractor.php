@@ -1,5 +1,5 @@
 <?php
-namespace HcbBlog\Stdlib\Extractor;
+namespace HcbComments\Stdlib\Extractor;
 
 use Zf2Libs\Stdlib\Extractor\ExtractorInterface;
 use Zf2Libs\Stdlib\Extractor\Exception\InvalidArgumentException;
@@ -21,6 +21,15 @@ class Extractor implements ExtractorInterface
                                                 invalid object given");
         }
 
-        return array('id'=>$comment->getId());
+        $createdTimestamp = $comment->getCreatedTimestamp();
+
+        if ($createdTimestamp) {
+            $createdTimestamp = $createdTimestamp->format('Y-m-d H:i:s');
+        }
+
+        return array('id'=>$comment->getId(),
+                     'content'=>$comment->getContent(),
+                     'approved'=>$comment->getApproved(),
+                     'createdTimestamp'=>$createdTimestamp);
     }
 }
