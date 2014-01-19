@@ -1,7 +1,7 @@
 {
-    "name": "huskycms/hcb-blog",
+    "name": "huskycms/hcb-comments",
     "type": "huskycms-backend-plugin",
-    "description": "Blog managing plugin for backend area of the HuskyCMS",
+    "description": "Comments managing plugin for backend area of the HuskyCMS",
     "authors": [
         {
             "name": "Mylotskyi Oleksii",
@@ -13,7 +13,7 @@
         "huskycms", "plugin", "module"
     ],
     "license": "MIT",
-    "homepage": "http://huskycms.com/hcb-blog",
+    "homepage": "http://huskycms.com/hcb-comments",
     "repositories": [
         {
             "type": "composer",
@@ -28,7 +28,6 @@
         "php": ">=5.3",
         "zendframework/zendframework": ">=2.0.0",
         "spalax/zf2-libs": "dev-master",
-        "spalax/zf2-file-uploader": "dev-master",
         "doctrine/doctrine-module": "0.*",
         "doctrine/doctrine-orm-module": "0.*",
         "doctrine/migrations": "v1.0-ALPHA1",
@@ -37,7 +36,7 @@
 
     "autoload": {
         "psr-0": {
-            "HcbBlog": "src/"
+            "HcbComments": "src/"
         },
 
         "classmap": [
