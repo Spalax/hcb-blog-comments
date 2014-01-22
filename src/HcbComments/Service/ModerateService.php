@@ -4,13 +4,13 @@ namespace HcbComments\Service;
 use HcbComments\Entity\Comment as CommentEntity;
 use HcBackend\Data\Collection\Entities\ByIdsInterface;
 use HcBackend\Service\CommandInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Zf2Libs\Stdlib\Service\Response\Messages\Response;
 
 class ModerateService implements CommandInterface
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $entityManager;
 
@@ -24,7 +24,12 @@ class ModerateService implements CommandInterface
      */
     protected $moderateData;
 
-    public function __construct(EntityManager $entityManager,
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @param Response $response
+     * @param ByIdsInterface $moderateData
+     */
+    public function __construct(EntityManagerInterface $entityManager,
                                 Response $response,
                                 ByIdsInterface $moderateData)
     {
