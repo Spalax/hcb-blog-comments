@@ -3,7 +3,7 @@ namespace HcbComments\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use HcBackend\Entity\EntityInterface;
-use HcbClients\Entity\Client;
+use HcBackend\Entity\User;
 
 /**
  * MappedComment
@@ -30,14 +30,14 @@ class MappedComment implements EntityInterface
     private $content = '';
 
     /**
-     * @var Client
+     * @var User
      *
-     * @ORM\OneToOne(targetEntity="HcbClients\Entity\Client")
+     * @ORM\OneToOne(targetEntity="HcBackend\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
-    private $client = null;
+    private $user = null;
 
     /**
      * @var integer
@@ -133,25 +133,25 @@ class MappedComment implements EntityInterface
     }
 
     /**
-     * Set client
+     * Set user
      *
-     * @param \HcbClients\Entity\Client $client
+     * @param \HcBackend\Entity\User $user
      * @return MappedComment
      */
-    public function setClient(\HcbClients\Entity\Client $client = null)
+    public function setUser(\HcBackend\Entity\User $user = null)
     {
-        $this->client = $client;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get client
+     * Get user
      *
-     * @return \HcbClients\Entity\Client
+     * @return \HcBackend\Entity\User
      */
-    public function getClient()
+    public function getUser()
     {
-        return $this->client;
+        return $this->user;
     }
 }
