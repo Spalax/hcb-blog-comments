@@ -2,7 +2,7 @@
 namespace HcbComments\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use HcBackend\Entity\EntityInterface;
+use HcCore\Entity\EntityInterface;
 use HcBackend\Entity\User;
 
 /**
